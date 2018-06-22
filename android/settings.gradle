@@ -1,0 +1,3 @@
+rootProject.name = 'mandiApp'
+
+include ':app'
