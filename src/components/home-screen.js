@@ -121,7 +121,7 @@ const TITLE = {
   color: "#545454",
 }
 
-export class HomeScreen extends React.Component {
+export class WorkDates extends React.Component {
       static navigationOptions = {
         title: 'Rihan',
         headerRight: (
@@ -166,13 +166,16 @@ export class HomeScreen extends React.Component {
 }
 
  class NameList extends React.Component {
-  openFoodItemDetail = () => {
-   
+  openWorkDates = () => {
+    this.props.navigation.navigate("dates", {
+      id: this.props.foodItem.cid,
+      name: this.props.foodItem.name,
+    })
   }
   render() {
     const { image, name, description, prize } = this.props.foodItem
     return (
-      <TouchableOpacity onPress={this.openFoodItemDetail}>
+      <TouchableOpacity onPress={this.openWorkDates}>
         <View style={ROW_CONTAINER}>
             <Text style={TITLE} numberOfLines={2} ellipsizeMode={"tail"}>
               {name}
@@ -183,4 +186,4 @@ export class HomeScreen extends React.Component {
   }
 }
 
-export default HomeScreen;
+export default WorkDates;
