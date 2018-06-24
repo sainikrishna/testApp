@@ -153,7 +153,7 @@ export class WorkDates extends React.Component {
       >
         <View>
           <FlatList
-            data={ImageDetail[1].allFood}
+            data={ImageDetail}
             keyExtractorr={(item, index) => index}
             renderItem={({ item }) => <NameList {...this.props} foodItem={item} />}
             refreshing={this.state.refresh}
