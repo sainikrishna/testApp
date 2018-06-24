@@ -91,66 +91,57 @@ import {
   FlatList,
   Text,
   ImageBackground,
-  Dimensions
+  Dimensions,
+  StyleSheet,
+  ScrollView
 } from "react-native"
 import { ImageDetail } from './data'
 import Icon from 'react-native-vector-icons/FontAwesome';
+import AddNameForm from './add-name'
 
 const Dimens = Dimensions.get("window")
 
 
-const ROW_CONTAINER = {
-  flexDirection: "row",
-  backgroundColor: "#FFF",
-  padding: 20,
-  marginRight: 10,
-  marginLeft: 10,
-  marginTop: 10,
-  borderRadius: 4,
-  shadowOffset: { width: 1, height: 1 },
-  shadowColor: "#CCC",
-  shadowOpacity: 1.0,
-  shadowRadius: 1,
-}
-
-const TITLE = {
-  paddingLeft: 10,
-  paddingTop: 5,
-  fontSize: 16,
-  fontWeight: "bold",
-  color: "#545454",
-}
-
-export class WorkDates extends React.Component {
-      static navigationOptions = {
-        title: 'Rihan',
-        headerRight: (
-            <Icon name="plus" size={30} onPress={() => alert('Add')} color="#208BF5" style={{padding:15}}/>
-          ),
-      };
+class WorkDates extends React.Component {
+    
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: 'Rihan',
+      headerRight: (
+        <Icon name="plus" size={30} onPress={navigation.getParam('addName')} color="#208BF5" style={{padding:15}}/>
+      ),
+    }
+  }
 
   state = {
     refresh: false,
+    openForm:false,
+  }
+
+  componentDidMount(){
+    this.props.navigation.setParams({addName: this.openForm})
+  }
+
+  openForm = () => {
+    this.setState({openForm:true})
+  }
+
+  onAddName = (name, number) => {
+    ImageDetail.unshift({name, number})
+    this.setState({openForm:false})
+
   }
 
   _keyExtractor = (item, index) => item.cid
-
-  onRefreshList = () => {
-    this.setState({ refresh: true })
-    setInterval(() => {
-      if (this.state.refresh) {
-        this.setState({ refresh: false })
-      }
-    }, 2000)
-  }
 
   render() {
 
     return (
       <ImageBackground
-        style={{ width: Dimens.width, height: Dimens.height}}
+        style={{ width: Dimens.width, height: Dimens.height-70}}
         source={require('../../images/background-home2.jpg')}
       >
+      <ScrollView>
         <View>
           <FlatList
             data={ImageDetail}
@@ -160,6 +151,8 @@ export class WorkDates extends React.Component {
             onRefresh={this.onRefreshList}
           />
         </View>
+        <AddNameForm onAddName={this.onAddName} modalVisible = {this.state.openForm} onCloseForm = {() => this.setState({openForm:false})}/>
+        </ScrollView>
       </ImageBackground>
     )
   }
@@ -176,8 +169,8 @@ export class WorkDates extends React.Component {
     const { image, name, description, prize } = this.props.foodItem
     return (
       <TouchableOpacity onPress={this.openWorkDates}>
-        <View style={ROW_CONTAINER}>
-            <Text style={TITLE} numberOfLines={2} ellipsizeMode={"tail"}>
+        <View style={styles.row_container}>
+            <Text style={styles.title} numberOfLines={2} ellipsizeMode={"tail"}>
               {name}
             </Text>
         </View>
@@ -185,5 +178,28 @@ export class WorkDates extends React.Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  row_container:{
+    flexDirection: "row",
+    backgroundColor: "#FFF",
+    padding: 20,
+    marginRight: 10,
+    marginLeft: 10,
+    marginTop: 10,
+    borderRadius: 4,
+    shadowOffset: { width: 1, height: 1 },
+    shadowColor: "#CCC",
+    shadowOpacity: 1.0,
+    shadowRadius: 1,
+  },
+  title:{
+    paddingLeft: 10,
+    paddingTop: 5,
+    fontSize: 16,
+    fontWeight: "bold",
+    color: "#545454",
+  }
+})
 
 export default WorkDates;

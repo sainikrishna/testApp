@@ -7,7 +7,8 @@ import {
   Dimensions,
   StyleSheet,
   FlatList,
-  ToastAndroid
+  ToastAndroid,
+  ScrollView
 } from "react-native"
 import Icon from 'react-native-vector-icons/FontAwesome';
 import DatePicker from 'react-native-datepicker'
@@ -76,42 +77,44 @@ export class WorkDates extends React.Component {
     const name = this.props.navigation.getParam('name', '');
     return (
       <ImageBackground
-          style={{ width: Dimens.width, height: Dimens.height}}
+          style={{ width: Dimens.width, height: Dimens.height-70}}
           source={require('../../images/background-home.jpg')}
         >
-      <View style={styles.container}>
-      {Dates.length ?
-        <FlatList
-          data={Dates}
-          keyExtractorr={(item, index) => index}
-          renderItem={({ item }) => <DateList {...this.props} name={name} dates={item} />}
-          refreshing={this.state.refresh}
-          onRefresh={this.onRefreshList}
-        />: <Text>Date not availble</Text>}
-        <DatePicker
-          ref={(picker) => { this.datePicker = picker; }}
-          style={{width: 200}}
-          date={currentDate}
-          mode="date"
-          format="YYYY-MM-DD"
-          minDate="2018-01-01"
-          maxDate={currentDate}
-          confirmBtnText="Confirm"
-          cancelBtnText="Cancel"
-          androidMode="spinner"
-          hideText={true}
-          showIcon={false}
-          customStyles={{
-            dateIcon: {
-              position: 'absolute',
-              left: 0,
-              top: 4,
-              marginLeft: 0
-            }
-          }}
-          onDateChange={this.onDateSelect}
-        />
-      </View>
+        <ScrollView>
+          <View style={styles.container}>
+          {Dates.length ?
+            <FlatList
+              data={Dates}
+              keyExtractorr={(item, index) => index}
+              renderItem={({ item }) => <DateList {...this.props} name={name} dates={item} />}
+              refreshing={this.state.refresh}
+              onRefresh={this.onRefreshList}
+            />: <Text>Date not availble</Text>}
+            <DatePicker
+              ref={(picker) => { this.datePicker = picker; }}
+              style={{width: 200}}
+              date={currentDate}
+              mode="date"
+              format="YYYY-MM-DD"
+              minDate="2018-01-01"
+              maxDate={currentDate}
+              confirmBtnText="Confirm"
+              cancelBtnText="Cancel"
+              androidMode="spinner"
+              hideText={true}
+              showIcon={false}
+              customStyles={{
+                dateIcon: {
+                  position: 'absolute',
+                  left: 0,
+                  top: 4,
+                  marginLeft: 0
+                }
+              }}
+              onDateChange={this.onDateSelect}
+            />
+          </View>
+        </ScrollView>
       </ImageBackground>
     );
   }
@@ -144,8 +147,7 @@ class DateList extends React.Component {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-        backgroundColor: 'rgba(0,0,0,0.5)'
+        // backgroundColor: 'rgba(0,0,0,0)'
       },
       welcome: {
         fontSize: 20,

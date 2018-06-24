@@ -29,5 +29,6 @@ export const ImageDetail = [
       name: "Krishan",
       mobile_number: "have a big dinner with friends and talk about life",
     },
+    
   ]
   
