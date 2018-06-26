@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Modal, Text, TouchableOpacity, View, TextInput, StyleSheet, ScrollView, Picker} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { Table, Row, Rows } from 'react-native-table-component';
+import ExampleThree from './test'
 
 class RecieptDetail extends Component {
     constructor(){
@@ -9,7 +11,15 @@ class RecieptDetail extends Component {
             name:'',
             number:'',
             error:false,
-            fruite:'mango'
+            fruite:'mango',
+            tableHead: ['No', 'Name', 'Weight', 'Rate', 'Karet', 'co(%)', 'Total'],
+            tableData: [
+                ['1', '2', '3', '4', '5', '4', '5'],
+                ['a', 'b', 'c', 'd', 'e', '4', '5'],
+                ['1', '2', '3', '456', '5', '4', '5'],
+                ['a', 'b', 'c', 'd', 'e', '4', '5']
+            ]
+            
         }
     }
 
@@ -34,7 +44,7 @@ class RecieptDetail extends Component {
                     <Text style={{fontSize:18}}>{name}</Text>
                     <Text style={{fontSize:18}}>{date}</Text>
                 </View>
-                <View>
+            {/*    <View>
                     <Text style={styles.table_title}>
                         Add Detail
                     </Text>
@@ -55,12 +65,10 @@ class RecieptDetail extends Component {
                             autoCorrect={false}
                             next='next'
                             style={styles.text_inputs}
-                            // underlineColorAndroid='transparent'
-                            // borderColor='grey'
-                            // borderWidth= {1}
+                           
                         />
                         <TextInput  
-                            // style={{height: 40}}
+                           
                             onChangeText={(number) => this.setState({number, error:false})}
                             value={this.state.number}
                             autoCorrect={false}
@@ -73,7 +81,14 @@ class RecieptDetail extends Component {
                             // borderWidth= {1}
                         />
                     </View>
-                </View>
+                    <View style={styles.table_container}>
+                        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff', padding:0}}>
+                            <Row data={this.state.tableHead} flexArr={[2,3,3,2,3,2,3]} style={styles.head} textStyle={styles.text}/>
+                            <Rows data={this.state.tableData} flexArr={[2,3,3,2,3,2,3]} textStyle={styles.text}/>
+                        </Table>
+                        <ExampleThree/>
+                    </View>
+    </View>*/}
             </View>
         </ScrollView>
     );
@@ -135,6 +150,9 @@ const styles = StyleSheet.create({
         color:'white',
         borderRadius:4,
         fontSize:15,
-    }
+    },
+    table_container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff', padding:0 },
+    head: { height: 40, backgroundColor: '#f1f8ff' },
+    text: { margin: 6, textAlign:'center' }
 })
 export default RecieptDetail;
