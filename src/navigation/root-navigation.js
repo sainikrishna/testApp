@@ -13,7 +13,7 @@ const AppStack = createStackNavigator({
                         reciept_detail: RecieptDetail
                       },
                       {
-                        initialRouteName: 'reciept_detail',
+                        initialRouteName: 'Home',
                       });
 const AuthStack = createStackNavigator({ SignIn: SignInScreen });
 

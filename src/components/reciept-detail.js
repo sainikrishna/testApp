@@ -44,51 +44,82 @@ class RecieptDetail extends Component {
                     <Text style={{fontSize:18}}>{name}</Text>
                     <Text style={{fontSize:18}}>{date}</Text>
                 </View>
-            {/*    <View>
-                    <Text style={styles.table_title}>
-                        Add Detail
-                    </Text>
+                
+                <View>
+                    <View style={[styles.table_container, {paddingTop:0}]}>
+                    <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff', padding:0}}>
+                        <Row data={this.state.tableHead} flexArr={[2,3,3,2,3,2,3]} style={styles.head} textStyle={styles.text}/>
+                        <Rows data={this.state.tableData} flexArr={[2,3,3,2,3,2,3]} textStyle={styles.text}/>
+                    </Table>
+                </View>
                     <View style={styles.detail_container}>
-                        <Picker
-                            selectedValue={this.state.fruite}
-                            style={{ height: 20, width: 100 }}
-                            mode='dropdown'
-                            onValueChange={(itemValue, itemIndex) => this.setState({fruite: itemValue})}>
-                            <Picker.Item label="Mango" value="mango" />
-                            <Picker.Item label="Orange" value="orange" />
-                            <Picker.Item label="Graps" value="graps" />
-                        </Picker>
-                        <TextInput
-                            style={{height: 200}}
-                            onChangeText={(name) => this.setState({name, error:false})}
-                            value={this.state.name}
-                            autoCorrect={false}
-                            next='next'
-                            style={styles.text_inputs}
-                           
-                        />
-                        <TextInput  
-                           
-                            onChangeText={(number) => this.setState({number, error:false})}
-                            value={this.state.number}
-                            autoCorrect={false}
-                            next='done'
-                            keyboardType="numeric"
-                            style={styles.text_inputs}
-                            placeholder="Enter Nu"
-                            // underlineColorAndroid='transparent'
-                            // borderColor='grey'
-                            // borderWidth= {1}
-                        />
-                    </View>
-                    <View style={styles.table_container}>
-                        <Table borderStyle={{borderWidth: 2, borderColor: '#c8e1ff', padding:0}}>
-                            <Row data={this.state.tableHead} flexArr={[2,3,3,2,3,2,3]} style={styles.head} textStyle={styles.text}/>
-                            <Rows data={this.state.tableData} flexArr={[2,3,3,2,3,2,3]} textStyle={styles.text}/>
-                        </Table>
-                        <ExampleThree/>
-                    </View>
-    </View>*/}
+                        <View style={styles.add_items}>
+                            <View style={styles.form_container}>
+                                <View style={styles.form_field}>
+                                    <Text>Name: </Text>
+                                    <Picker
+                                        selectedValue={this.state.fruite}
+                                        style={{ height: 20, width: 120 }}
+                                        mode='dropdown'
+                                        onValueChange={(itemValue, itemIndex) => this.setState({fruite: itemValue})}>
+                                        <Picker.Item label="Mango" value="mango" />
+                                        <Picker.Item label="Orange" value="orange" />
+                                        <Picker.Item label="Graps" value="graps" />
+                                    </Picker>
+                                </View>
+                                
+                                <View style={[styles.form_field, {justifyContent:'flex-end'}]}>
+                                    <Text>No: </Text>
+                                    <TextInput 
+                                        onChangeText = {(name) => this.setState({name, error:false})}
+                                        autoCorrect = {false}
+                                        style={{width:50}}
+                                    />
+                                </View>
+                                <View style={styles.form_field}>
+                                    <Text>Weight: </Text>
+                                    <TextInput 
+                                        onChangeText = {(name) => this.setState({name, error:false})}
+                                        autoCorrect = {false}
+                                        style={{width:50}}
+                                    />
+                                </View>
+                                <View style={styles.form_field}>
+                                    <Text>Rate: </Text>
+                                    <TextInput 
+                                        onChangeText = {(name) => this.setState({name, error:false})}
+                                        autoCorrect = {false}
+                                        style={{width:50}}
+                                    />
+                                </View>
+                                <View style={styles.form_field}>
+                                    <Text>Comission: </Text>
+                                    <TextInput 
+                                        onChangeText = {(name) => this.setState({name, error:false})}
+                                        autoCorrect = {false}
+                                        style={{width:50}}
+                                    />
+                                </View>
+                                <View style={styles.form_field}>
+                                    <Text>Karet: </Text>
+                                    <TextInput 
+                                        onChangeText = {(name) => this.setState({name, error:false})}
+                                        autoCorrect = {false}
+                                        style={{width:50}}
+                                    />
+                                </View>
+                            </View>
+                            <View style={styles.action_buttons}>
+                                <TouchableOpacity style={styles.reset_button}>
+                                    <Text style={{color:'white'}}>Reset</Text>                 
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.add_button}>
+                                    <Text style={{color:'white'}}>Add</Text>                 
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>   
+                </View>
             </View>
         </ScrollView>
     );
@@ -100,6 +131,7 @@ const styles = StyleSheet.create({
         flex:1,
         justifyContent:'center',
         marginTop:-100,
+        paddingTop:0,
     },
 
     container:{
@@ -107,6 +139,14 @@ const styles = StyleSheet.create({
         marginHorizontal:10,
         flexDirection:'row',
         justifyContent:'space-between',
+        marginBottom: 15, 
+    },
+
+    add_items:{
+        width:'100%', 
+        backgroundColor:'white',
+        marginTop:20, 
+        paddingHorizontal:10,
     },
 
     table_title:{
@@ -116,40 +156,41 @@ const styles = StyleSheet.create({
     },
 
     detail_container:{
-        marginHorizontal: 5,
-        backgroundColor:'white',
+        paddingHorizontal: 5,
         flexDirection:'row',
         justifyContent:'space-between',
+    },
+    form_container:{
+        flexDirection:'row', 
+        justifyContent:'space-between', 
+        width:'100%', 
+        flexWrap:'wrap',
     },
 
-    text_inputs:{
-        marginBottom:20,
-       
-        
+    form_field:{
+        flexDirection:'row', 
+        // justifyContent:'', 
+        alignItems:'center',
     },
+
     action_buttons:{
         flexDirection:'row',
-        justifyContent:'space-between',
-        marginTop:30,
+        justifyContent:'flex-end',
+        marginVertical:15,
     },
 
     add_button:{
-        fontSize:15,
         backgroundColor:'green',
-        // flex:2
-        paddingVertical:10,
-        paddingHorizontal:70,
-        color:'white',
+        paddingVertical:8,
+        paddingHorizontal:50,
         borderRadius:4,
     },
-    cancel_button:{
-        // flex:1,
+    reset_button:{
         backgroundColor:'grey',
-        paddingVertical:10,
+        paddingVertical:8,
         paddingHorizontal:20,
-        color:'white',
         borderRadius:4,
-        fontSize:15,
+        marginRight:10,
     },
     table_container: { flex: 1, padding: 16, paddingTop: 30, backgroundColor: '#fff', padding:0 },
     head: { height: 40, backgroundColor: '#f1f8ff' },
